@@ -1,6 +1,5 @@
-# Created by mbflo at 12/13/2022
-Feature: # Enter feature name here
-  # Enter feature description here
+Feature: Test Main Page
 
-  Scenario: # Enter scenario name here
-    # Enter steps here
+  Scenario: Check if there are mismatch numbers
+    Given Open Main Page
+    Then Verify phone number in correct order

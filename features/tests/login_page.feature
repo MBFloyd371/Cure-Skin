@@ -1,5 +1,5 @@
-Feature: Test Contact Us Page
+Feature: Test Login Page
 
-  Scenario: Check if email address is clickable
-    Given Open Contact Us
-    Then Verify email address is clickable
+  Scenario: Check if email section in the right order
+    Given Open Login Page
+    Then Verify email is separate from schedule information
