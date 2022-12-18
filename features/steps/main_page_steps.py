@@ -8,16 +8,16 @@ def open_url(context):
 
 
 @then('Verify phone number in correct order')
-def verify_element_text(context):
-    context.app.main_page.verify_element_text()
+def verify_element_phone_text(context):
+    context.app.main_page.verify_element_phone_text()
 
 
 @then('Verify the word favorites is spelled correctly')
-def verify_element_text(context):
-    context.app.main_page.verify_element_text()
+def verify_element_headline_text(context):
+    context.app.main_page.verify_element_headline_text()
 
 
 @then('Verify the word fair is deleted')
-def verify_element_text(context):
-    context.app.main_page.verify_element_text()
+def verify_element_title_text(context):
+    context.app.main_page.verify_element_title_text()
 
