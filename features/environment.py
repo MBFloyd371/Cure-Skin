@@ -9,7 +9,7 @@ from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
-
+#
 # Allure command:
 #behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/sign-in.feature
 
