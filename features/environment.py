@@ -5,30 +5,37 @@ from selenium.webdriver.support import expected_conditions as EC
 #from support.logger import logger, MyListener
 
 from app.application import Application
-
+from selenium.webdriver.firefox.options import Options
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 
 
 # Allure command:
 #behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/sign-in.feature
 
+
+
+options = Options()
+options.binary = FirefoxBinary(r'C:\Program Files\Mozilla Firefox\firefox.exe')
+options.set_preference("browser.download.folderList",2)
+options.set_preference("browser.download.manager.showWhenStarting", False)
+options.set_preference("browser.download.dir","/Data")
+options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream,application/vnd.ms-excel")
+
 def browser_init(context):
     """
     :param context: Behave context
     """
-    context.driver = webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe')
-    # webdriver.Edge(executable_path=r'C:\Users\mbflo\selenium\msedgedriver.exe')
-    # webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\python-selenium-automation\chromedriver.exe')
-    # context.browser = webdriver.Safari()
-    # context.browser = webdriver.Firefox()
+    #context.driver = webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe')
+    #context.driver = webdriver.Firefox(options=options, executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\geckodriver.exe')
 
     ## HEADLESS MODE ####
-    # options = webdriver.ChromeOptions()
-    # options.add_argument('--headless')
-    # context.driver = webdriver.Chrome(
-    #     chrome_options=options,
-    #     executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe'
-    # )
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')
+    context.driver = webdriver.Chrome(
+         chrome_options=options,
+         executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe'
+     )
 
     ### EventFiringWebDriver - log file ###
     ### for drivers ###
