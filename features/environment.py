@@ -22,20 +22,20 @@ options.set_preference("browser.download.manager.showWhenStarting", False)
 options.set_preference("browser.download.dir","/Data")
 options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream,application/vnd.ms-excel")
 
-def browser_init(context):
+def browser_init(context, test_name):
     """
     :param context: Behave context
     """
-    #context.driver = webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe')
+    context.driver = webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe')
     #context.driver = webdriver.Firefox(options=options, executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\geckodriver.exe')
 
     ## HEADLESS MODE ####
-    options = webdriver.ChromeOptions()
-    options.add_argument('--headless')
-    context.driver = webdriver.Chrome(
-         chrome_options=options,
-         executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe'
-     )
+    #options = webdriver.ChromeOptions()
+    #options.add_argument('--headless')
+    #context.driver = webdriver.Chrome(
+         #chrome_options=options,
+         #executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe'
+     #)
 
     ### EventFiringWebDriver - log file ###
     ### for drivers ###
@@ -48,16 +48,16 @@ def browser_init(context):
     #context.driver = EventFiringWebDriver(webdriver.Chrome(chrome_options = options), MyListener())
 
     ###for browerstack ###
-    #desired_cap = {
-        #'browser': 'Chrome',
-         #'os_version': '11',
-         #'os': 'Windows',
-         #'name': test_name
-    #}
-    #bs_user = 'marcusfloyd_YqUcLk'
-    #bs_key = 'zRhMbAEy2EV5PfF4MenL'
-    #url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    #context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
+    desired_cap = {
+        'browser': 'Chrome',
+         'os_version': '11',
+         'os': 'Windows',
+         'name': test_name
+}
+    bs_user = 'marcusfloyd_YqUcLk'
+    bs_key = 'zRhMbAEy2EV5PfF4MenL'
+    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
 
 
 
@@ -70,7 +70,7 @@ def browser_init(context):
 def before_scenario(context, scenario):
     print('\nStarted scenario: ', scenario.name)
     #logger.info(f'Started scenario: {scenario.name}')
-    browser_init(context)
+    browser_init(context, scenario.name)
 
 
 def before_step(context, step):
