@@ -11,22 +11,30 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 
 #
 # Allure command:
-#behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/sign-in.feature
+#behave -f allure_behave.formatter:AllureFormatter -o test_results/ features/tests/login_page.feature
 
 
 
-options = Options()
-options.binary = FirefoxBinary(r'C:\Program Files\Mozilla Firefox\firefox.exe')
-options.set_preference("browser.download.folderList",2)
-options.set_preference("browser.download.manager.showWhenStarting", False)
-options.set_preference("browser.download.dir","/Data")
-options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream,application/vnd.ms-excel")
+#options = Options()
+#options.binary = FirefoxBinary(r'C:\Program Files\Mozilla Firefox\firefox.exe')
+#options.set_preference("browser.download.folderList",2)
+#options.set_preference("browser.download.manager.showWhenStarting", False)
+#options.set_preference("browser.download.dir","/Data")
+#options.set_preference("browser.helperApps.neverAsk.saveToDisk", "application/octet-stream,application/vnd.ms-excel")
+
+
+mobile_emulation = { "deviceName": "Nexus 7" }
+chrome_options = webdriver.ChromeOptions()
+
+
+
+
 
 def browser_init(context, test_name):
     """
     :param context: Behave context
     """
-    context.driver = webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe')
+    #context.driver = webdriver.Chrome(executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\chromedriver.exe')
     #context.driver = webdriver.Firefox(options=options, executable_path=r'C:\Users\mbflo\Automation\Cure-Skin\geckodriver.exe')
 
     ## HEADLESS MODE ####
@@ -48,18 +56,20 @@ def browser_init(context, test_name):
     #context.driver = EventFiringWebDriver(webdriver.Chrome(chrome_options = options), MyListener())
 
     ###for browerstack ###
-    desired_cap = {
-        'browser': 'Chrome',
-         'os_version': '11',
-         'os': 'Windows',
-         'name': test_name
-}
-    bs_user = 'marcusfloyd_YqUcLk'
-    bs_key = 'zRhMbAEy2EV5PfF4MenL'
-    url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
-    context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
+    #desired_cap = {
+        #'browser': 'Chrome',
+         #'os_version': '11',
+         #'os': 'Windows',
+         #'name': test_name
+#}
+    #bs_user = 'marcusfloyd_YqUcLk'
+    #bs_key = 'zRhMbAEy2EV5PfF4MenL'
+    #url = f'http://{bs_user}:{bs_key}@hub-cloud.browserstack.com/wd/hub'
+    #context.driver = webdriver.Remote(url, desired_capabilities=desired_cap)
 
-
+    chrome_options.add_experimental_option("mobileEmulation", mobile_emulation)
+    context.driver = webdriver.Remote(command_executor='http://127.0.0.1:4444/wd/hub',
+                              desired_capabilities=chrome_options.to_capabilities())
 
     context.driver.maximize_window()
     context.driver.implicitly_wait(4)
